@@ -4,10 +4,13 @@
   "private": true,
   "description": "EcoCycle AI — Circular Economy E-Waste Diagnostic, Valuation, and Routing Engine",
   "scripts": {
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "start": "npm --prefix server start",
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev",
     "build": "npm --prefix server run build && npm --prefix client run build",
+    "serve": "npm --prefix server start",
     "test": "npm --prefix server run test",
     "migrate": "npm --prefix server run migrate"
   },

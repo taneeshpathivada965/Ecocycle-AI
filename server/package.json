@@ -15,7 +15,6 @@
     "@supabase/supabase-js": "^2.45.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "emergency-sense-root": "file:..",
     "express": "^4.21.0",
     "localtunnel": "^2.0.2",
     "pg": "^8.13.0",
