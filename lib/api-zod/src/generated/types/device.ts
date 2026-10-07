@@ -5,7 +5,10 @@
  * EcoCycle AI device reuse and responsible recycling services
  * OpenAPI spec version: 0.1.0
  */
+import type { DeviceInput } from './deviceInput';
 
-export interface HealthStatus {
-  status: string;
-}
+export type Device = DeviceInput & {
+  id: string;
+  createdAt: Date;
+  confidence?: number;
+};

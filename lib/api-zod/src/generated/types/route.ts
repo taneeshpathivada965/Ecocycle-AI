@@ -6,6 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface HealthStatus {
-  status: string;
-}
+export type Route = typeof Route[keyof typeof Route];
+
+
+export const Route = {
+  RESALE: 'RESALE',
+  RECYCLING: 'RECYCLING',
+} as const;

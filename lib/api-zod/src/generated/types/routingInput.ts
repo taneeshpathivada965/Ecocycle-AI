@@ -5,7 +5,9 @@
  * EcoCycle AI device reuse and responsible recycling services
  * OpenAPI spec version: 0.1.0
  */
+import type { Condition } from './condition';
 
-export interface HealthStatus {
-  status: string;
+export interface RoutingInput {
+  condition: Condition;
+  deviceName?: string;
 }

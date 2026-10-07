@@ -5,7 +5,8 @@
  * EcoCycle AI device reuse and responsible recycling services
  * OpenAPI spec version: 0.1.0
  */
+import type { Route } from './route';
 
-export interface HealthStatus {
-  status: string;
-}
+export type ListEcoCyclePartnersParams = {
+route?: Route;
+};

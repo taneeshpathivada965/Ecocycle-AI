@@ -5,7 +5,6 @@
  * EcoCycle AI device reuse and responsible recycling services
  * OpenAPI spec version: 0.1.0
  */
+import type { SanitizationRecord } from './sanitizationRecord';
 
-export interface HealthStatus {
-  status: string;
-}
+export type Certificate = SanitizationRecord;
