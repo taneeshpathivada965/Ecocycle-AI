@@ -8,8 +8,7 @@
     "client"
   ],
   "scripts": {
-    "install:all": "npm install",
-    "build": "npm --prefix server run build && npm --prefix client run build",
+    "build": "npm --prefix server run build && npm --prefix client run build && node -e \"const fs = require('fs'); fs.cpSync('client/dist', 'dist', { recursive: true, force: true });\"",
     "build:server": "npm --prefix server run build",
     "build:client": "npm --prefix client run build",
     "start": "node -e \"if (!require('fs').existsSync('server/dist/index.js')) { require('child_process').execSync('npm run build', { stdio: 'inherit' }); }\" && npm --prefix server start",
