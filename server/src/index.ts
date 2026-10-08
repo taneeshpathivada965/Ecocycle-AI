@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 
 // Load environment variables
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -58,7 +59,11 @@ app.use('/api/demo', demoRoutes);
 
 // Static client build serving
 const clientDistPath = path.resolve(__dirname, '../../client/dist');
-app.use(express.static(clientDistPath));
+const clientIndex = path.join(clientDistPath, 'index.html');
+
+if (fs.existsSync(clientDistPath)) {
+  app.use(express.static(clientDistPath));
+}
 
 // Centralized Error Handling Middleware
 app.use(errorHandler);
@@ -68,7 +73,10 @@ app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api')) {
     return next();
   }
-  res.sendFile(path.join(clientDistPath, 'index.html'));
+  if (fs.existsSync(clientIndex)) {
+    return res.sendFile(clientIndex);
+  }
+  res.send(`<!DOCTYPE html><html><head><title>EcoCycle AI</title></head><body><h1>EcoCycle AI Engine is Live</h1><p>API is active at <a href="/api/health">/api/health</a></p></body></html>`);
 });
 
 // Start server

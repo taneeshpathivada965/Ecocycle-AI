@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 // Load environment variables
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../../.env') });
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
@@ -55,7 +56,10 @@ app.use('/api/eco-wallet', walletRoutes_1.default);
 app.use('/api/demo', demoRoutes_1.default);
 // Static client build serving
 const clientDistPath = path_1.default.resolve(__dirname, '../../client/dist');
-app.use(express_1.default.static(clientDistPath));
+const clientIndex = path_1.default.join(clientDistPath, 'index.html');
+if (fs_1.default.existsSync(clientDistPath)) {
+    app.use(express_1.default.static(clientDistPath));
+}
 // Centralized Error Handling Middleware
 app.use(errorHandler_1.errorHandler);
 // SPA client routing fallback for non-API routes
@@ -63,7 +67,10 @@ app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api')) {
         return next();
     }
-    res.sendFile(path_1.default.join(clientDistPath, 'index.html'));
+    if (fs_1.default.existsSync(clientIndex)) {
+        return res.sendFile(clientIndex);
+    }
+    res.send(`<!DOCTYPE html><html><head><title>EcoCycle AI</title></head><body><h1>EcoCycle AI Engine is Live</h1><p>API is active at <a href="/api/health">/api/health</a></p></body></html>`);
 });
 // Start server
 if (process.env.NODE_ENV !== 'test') {
