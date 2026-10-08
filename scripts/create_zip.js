@@ -47,6 +47,7 @@ async function makeZip() {
     'package.json',
     'package-lock.json',
     'render.yaml',
+    'vercel.json',
     'README.md'
   ];
 

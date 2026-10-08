@@ -10,6 +10,8 @@
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev",
     "build": "npm --prefix server run build && npm --prefix client run build",
+    "space": "node -e \"const { execSync } = require('child_process'); execSync('npm run build', { stdio: 'inherit' });\"",
+    "vercel-build": "npm run build",
     "serve": "npm --prefix server start",
     "test": "npm --prefix server run test",
     "migrate": "npm --prefix server run migrate"
