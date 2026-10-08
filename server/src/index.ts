@@ -81,9 +81,10 @@ app.get('*', (req, res, next) => {
 
 // Start server
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
-    logger.info(`EcoCycle AI Backend Server running on port ${PORT}`);
-    logger.info(`Health check available at http://localhost:${PORT}/api/health`);
+  const serverPort = Number(process.env.PORT) || 5000;
+  app.listen(serverPort, '0.0.0.0', () => {
+    logger.info(`EcoCycle AI Backend Server running on port ${serverPort}`);
+    logger.info(`Health check available at http://localhost:${serverPort}/api/health`);
   });
 }
 
