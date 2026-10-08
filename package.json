@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "description": "EcoCycle AI — Circular Economy E-Waste Diagnostic, Valuation, and Routing Engine",
+  "workspaces": [
+    "server",
+    "client"
+  ],
   "scripts": {
-    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
-    "start": "npm --prefix server start",
+    "install:all": "npm install",
+    "build": "npm --prefix server run build && npm --prefix client run build",
+    "build:server": "npm --prefix server run build",
+    "build:client": "npm --prefix client run build",
+    "start": "node -e \"if (!require('fs').existsSync('server/dist/index.js')) { require('child_process').execSync('npm run build', { stdio: 'inherit' }); }\" && npm --prefix server start",
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev",
-    "build": "npm --prefix server run build && npm --prefix client run build",
     "space": "node -e \"const { execSync } = require('child_process'); execSync('npm run build', { stdio: 'inherit' });\"",
     "vercel-build": "npm run build",
     "serve": "npm --prefix server start",

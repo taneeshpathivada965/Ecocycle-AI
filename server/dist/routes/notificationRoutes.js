@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const notificationController_1 = require("../controllers/notificationController");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const validationMiddleware_1 = require("../middleware/validationMiddleware");
+const schemas_1 = require("../validators/schemas");
+const router = (0, express_1.Router)();
+router.use(authMiddleware_1.requireAuth);
+router.post('/send', (0, validationMiddleware_1.validateBody)(schemas_1.SendNotificationSchema), notificationController_1.sendNotification);
+router.get('/:incidentId', notificationController_1.getNotificationsByIncident);
+exports.default = router;

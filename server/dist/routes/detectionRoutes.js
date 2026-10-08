@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const detectionController_1 = require("../controllers/detectionController");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const validationMiddleware_1 = require("../middleware/validationMiddleware");
+const schemas_1 = require("../validators/schemas");
+const router = (0, express_1.Router)();
+router.use(authMiddleware_1.requireAuth);
+router.post('/events', (0, validationMiddleware_1.validateBody)(schemas_1.DetectionEventSchema), detectionController_1.recordDetectionEvent);
+router.post('/simulate', (0, validationMiddleware_1.validateBody)(schemas_1.SimulateEventSchema), detectionController_1.simulateScenario);
+router.get('/recent', detectionController_1.getRecentDetectionEvents);
+exports.default = router;

@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const monitoringController_1 = require("../controllers/monitoringController");
+const authMiddleware_1 = require("../middleware/authMiddleware");
+const validationMiddleware_1 = require("../middleware/validationMiddleware");
+const schemas_1 = require("../validators/schemas");
+const router = (0, express_1.Router)();
+router.use(authMiddleware_1.requireAuth);
+router.post('/start', (0, validationMiddleware_1.validateBody)(schemas_1.MonitoringStartSchema), monitoringController_1.startMonitoring);
+router.post('/stop', monitoringController_1.stopMonitoring);
+router.get('/status', monitoringController_1.getMonitoringStatus);
+router.post('/signal', (0, validationMiddleware_1.validateBody)(schemas_1.MonitoringSignalSchema), monitoringController_1.ingestSignal);
+exports.default = router;
